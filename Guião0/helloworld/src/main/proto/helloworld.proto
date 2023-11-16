@@ -1,0 +1,50 @@
+
+syntax = "proto3";
+option java_multiple_files = true;
+
+package helloworld;
+
+service Hello {
+  rpc createAccount(AccountRequest) returns (AccountID) {}
+  rpc balance(AccountID) returns (Balance) {}
+  rpc deposit(OpRequest) returns (OpReply) {}
+  //rpc hello(HelloRequest) returns (HelloReply) {}
+  //rpc bye(ByeRequest) returns (ByeReply) {}
+}
+
+message AccountRequest {
+  uint32 balance = 1;
+}
+
+message AccountID {
+  uint32 id = 1;
+}
+
+message HelloRequest {
+  string who = 1;
+}
+
+message Balance {
+  uint32 balance = 1;
+}
+
+message OpRequest {
+  uint32 id = 1;
+  uint32 amount = 2;
+}
+
+message OpReply {
+  uint32 success = 1;
+}
+
+message HelloReply {
+  string greeting = 1;
+}
+
+message ByeRequest {
+  string who = 1;
+}
+
+message ByeReply {
+  string bye = 1;
+}
