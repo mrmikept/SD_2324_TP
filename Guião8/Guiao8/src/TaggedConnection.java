@@ -26,7 +26,7 @@ public class TaggedConnection implements AutoCloseable
 
     public Frame receive()
     {
-        return new Frame()
+        return new Frame();
     }
 
     @Override
