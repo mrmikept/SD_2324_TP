@@ -1,6 +1,7 @@
 package Coop;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.locks.Condition;
@@ -48,19 +49,25 @@ class Warehouse {
         this.warehouseLock.lock();
         try
         {
-            for (String s : items)
+            Iterator<String> iterator = items.iterator();
+            Iterator<String> start = iterator;
+            while (iterator.hasNext())
             {
-                Product product = get(s);
+                Product product = this.get(iterator.next());
                 while (product.quantity == 0)
                 {
                     product.condition.await();
+                    iterator = start;
                 }
+            }
+            for (String item : items)
+            {
+                Product product = this.get(item);
                 product.quantity--;
             }
         } finally {
             this.warehouseLock.unlock();
         }
-
     }
 
 }
